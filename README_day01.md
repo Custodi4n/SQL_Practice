@@ -68,7 +68,7 @@ JOIN person p ON tab.person_id = p.id
 
 ![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/0a3d9faf-4a90-41d9-9ee0-725965ab1bf4)
 
-## Task - 07
+## Task 7
 
 ```sql
 SELECT po.order_date, CONCAT(p.name, ' (возраст:', p.age, ')') AS personal_info
@@ -79,7 +79,7 @@ ORDER BY po.order_date, p.name, p.age;
 
 ![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/1c385a68-811d-4158-bb2d-7084020d73a5)
 
-## Task - 08
+## Task 8
 
 ```sql
 SELECT po.order_date, CONCAT(p.name, ' (возраст:', p.age, ')') AS personal_info
@@ -90,7 +90,7 @@ ORDER BY po.order_date, p.name, p.age;
 
 ![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/1cd8742c-2360-4aa9-afc8-4cf3a674e08d)
 
-## Task - 09
+## Task 9
 
 ```sql
 SELECT name
@@ -103,19 +103,7 @@ WHERE id NOT IN (
 
 ![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/ec04afe9-ca01-47a4-9271-67ec81f203f2)
 
-```sql
-SELECT name
-FROM pizzeria p
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM person_visits v
-    WHERE v.pizzeria_id = p.id
-);
-```
-
-![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/3a688f2c-c3c4-47d5-b159-acc04f579674)
-
-## Task - 10
+## Task 10
 
 ```sql
 SELECT
