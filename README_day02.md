@@ -1,0 +1,141 @@
+## Task 1
+
+```sql
+SELECT DISTINCT pizzeria.name, rating FROM pizzeria
+CROSS JOIN menu
+WHERE pizzeria.id NOT IN (SELECT pizzeria_id FROM person_visits)
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/05bde36e-868b-40eb-ac4a-894c2c781d58)
+
+## Task 2
+
+```sql
+SELECT  missing_date::date FROM generate_series ('2022-01-01','2022-01-10', INTERVAL '1 DAY') AS missing_date 
+FULL JOIN (
+SELECT * FROM person_visits WHERE person_id = 1 OR person_id = 2 AND visit_date BETWEEN '2022-01-01' AND '2022-01-10')  as tab
+ON missing_date = visit_date WHERE tab.person_id IS NULL
+ORDER BY missing_date
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/c6be74f7-387d-4264-8f93-942c9a407034)
+
+
+## Task 3
+
+```sql
+SELECT
+ COALESCE(p.name, '-'),
+ tab.visit_date,
+ COALESCE(pi.name, '-')
+ FROM person p
+ FULL JOIN (
+ SELECT pizzeria_id, person_id, visit_date FROM person_visits
+ WHERE visit_date BETWEEN '2022-01-01' AND '2022-01-03'
+) tab ON tab.person_id = p.id
+FULL JOIN pizzeria pi ON pi.id = tab.pizzeria_id
+ORDER BY 1, 2, 3
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/ffd2efdf-9f9e-49d2-892c-bcd93cae35b0)
+
+
+## Task 4
+
+```sql
+WITH date_nika AS(
+SELECT  missing_date::date 
+FROM generate_series ('2022-01-01','2022-01-10', INTERVAL '1 DAY') AS missing_date )
+SELECT date_nika.missing_date
+FROM date_nika
+LEFT JOIN (
+SELECT * FROM person_visits WHERE person_id = 1 OR person_id = 2 AND visit_date BETWEEN '2022-01-01' AND '2022-01-10')
+AS tab
+ON date_nika.missing_date = tab.visit_date
+WHERE tab.person_id IS NULL
+ORDER BY date_nika.missing_date
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/86c854ec-b492-4668-a861-08d097e1f3fe)
+
+## Task 5
+
+```sql
+SELECT m.pizza_name, pi.name, m.price FROM menu m
+JOIN pizzeria pi ON m.pizzeria_id = pi.id
+WHERE m.pizza_name IN ('mushroom pizza' , 'pepperoni pizza')
+ORDER BY 1, 2
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/3961a8ef-0cf9-401e-a41f-1b84f585cb59)
+
+## Task 6
+
+```sql
+SELECT name
+FROM person
+WHERE gender = 'female' AND age > 25
+ORDER BY name;
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/9ebb543c-6add-4bf3-b5d5-517ba469d814)
+
+## Task 7
+
+```sql
+SELECT m.pizza_name, pi.name 
+FROM person_order po
+JOIN menu m ON po.menu_id = m.id
+JOIN pizzeria pi ON pi.id = m.pizzeria_id
+JOIN person p ON p.id = po.person_id
+WHERE p.name IN ('Denis', 'Anna')
+ORDER BY 1, 2;
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/f168e9a3-2952-4a44-be47-ecaee2aaad3c)
+
+## Task 8
+
+```sql
+SELECT p.name, pz.name FROM person_visits pv
+JOIN person p ON pv.person_id = p.id
+JOIN pizzeria pz ON pv.pizzeria_id = pz.id
+WHERE pv.visit_date = '2022-01-08' AND p.name = 'Dmitriy';
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/4313de3f-9fd6-482d-8e3c-e895baf6dc7a)
+
+## Task 9
+
+```sql
+SELECT name FROM person p
+JOIN person_order po ON p.id = po.person_id
+JOIN menu m ON m.id = po.menu_id
+WHERE (p.gender='male' AND p.address='Moscow' or p.address='Samara') AND (m.pizza_name = 'mushroom pizza' or m.pizza_name = 'pepperoni pizza')
+ORDER BY p.name DESC;
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/e5c0fc56-1f68-4ba9-8b53-328aa5c6129c)
+
+## Task 10
+
+```sql
+SELECT name FROM person p
+JOIN person_order po ON p.id = po.person_id
+JOIN menu m ON m.id = po.menu_id
+WHERE (p.gender='female') AND (m.pizza_name = 'cheese pizza' or m.pizza_name = 'pepperoni pizza')
+ORDER BY p.name DESC;
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/929defd3-9f99-48d6-af26-a32db84d11ed)
+
+## Task 11
+
+```sql
+SELECT per1.name AS person_name1, per2.name AS person_name2, per1.address AS common_address
+FROM person AS per1
+JOIN person AS per2 ON per1.address = per2.address AND per1.name != per2.name
+ORDER BY person_name1, person_name2, common_address;
+```
+
+![image](https://github.com/nikeyzdereva/oad_vorobyov/assets/112609367/30d0a628-5d40-4cb9-aa70-b361a1a7cc24)
