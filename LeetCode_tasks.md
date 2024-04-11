@@ -59,10 +59,38 @@ WHERE e1.managerid = e2.id AND e1.salary > e2.salary
 ![image](https://github.com/Custodi4n/SQL_Practice/assets/113520737/4c29a73b-5d52-4ace-9943-adef5bd6adae)
 
 
-## 182. 
+## 182. Duplicate Emails
 
 ```sql
+SELECT tab.email FROM (
 SELECT email AS "Email", COUNT(*) AS n FROM person
 GROUP BY email
 HAVING COUNT(*) > 1
+) AS tab
 ```
+
+![image](https://github.com/Custodi4n/SQL_Practice/assets/113520737/f89537d9-3230-4e51-92c2-62c10bd454b0)
+
+
+## 183. Customers Who Never Order
+
+```sql
+SELECT cust.name AS "Customers" FROM Customers cust
+LEFT JOIN Orders ord ON cust.id = ord.customerId
+WHERE NOT ord.customerId <=> cust.id
+```
+
+![image](https://github.com/Custodi4n/SQL_Practice/assets/113520737/30af6b7c-7ee7-4ee5-9a34-ef0abe2d11d5)
+
+
+## 511. Game Play Analysis I
+
+```sql
+SELECT player_id, MIN(event_date) AS first_login FROM Activity
+GROUP BY player_id
+ORDER BY player_id
+```
+
+![image](https://github.com/Custodi4n/SQL_Practice/assets/113520737/fca118da-90ec-4b0d-bb74-a2e673eada7b)
+
+
