@@ -47,3 +47,22 @@ SELECT score, DENSE_RANK() OVER(ORDER BY score DESC) as rank FROM Scores
 ```
 ![image](https://github.com/Custodi4n/SQL_Practice/assets/113520737/53f8de5f-a94a-4392-8e21-df58f274b48b)
 ![image](https://github.com/Custodi4n/SQL_Practice/assets/113520737/6da5ed7a-d972-4edd-b38a-fbae5c402c24)
+
+
+## 181. Employees Earning More Than Their Managers
+
+```sql
+SELECT e1.name AS "Employee" FROM employee e1 
+JOIN employee e2 ON e1.managerid = e2.id
+WHERE e1.managerid = e2.id AND e1.salary > e2.salary
+```
+![image](https://github.com/Custodi4n/SQL_Practice/assets/113520737/4c29a73b-5d52-4ace-9943-adef5bd6adae)
+
+
+## 182. 
+
+```sql
+SELECT email AS "Email", COUNT(*) AS n FROM person
+GROUP BY email
+HAVING COUNT(*) > 1
+```
