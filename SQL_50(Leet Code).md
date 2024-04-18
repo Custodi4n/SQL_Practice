@@ -15,3 +15,6 @@ WHERE pod >= 5
 ## 1934. Confirmation Rate
 
 ```sql
+SELECT s.user_id, ROUND(COUNT(action = "confirmed"), 2) AS confirmation_rate FROM signups s
+LEFT JOIN confirmations c ON s.user_id = c.user_id
+GROUP BY s.user_id
